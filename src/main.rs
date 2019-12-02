@@ -1,6 +1,21 @@
-use std::num;
+use std::cmp::Ordering;
+
+
+fn calculate_fuel (mass:i64) -> i64 {
+    let fuel:i64 = (mass / 3) - 2; 
+
+    println!("{}, {}",mass, fuel);
+   match fuel.cmp(&0){
+     Ordering::Less | Ordering::Equal=> 0,
+     Ordering::Greater => calculate_fuel(fuel) + fuel
+    }
+
+
+}
+
+
 fn main() {
-let masses:[ u64;100 ] = [
+let masses:[ i64;100 ] = [
     77680,
 106826,
 120225,
@@ -103,7 +118,7 @@ let masses:[ u64;100 ] = [
 68267,
 ];
 
-let fuel:u64 = masses.iter().map(|mass| (mass / 3) - 2).sum();
-println!("{}", fuel);
+let fuel:i64 = masses.iter().map(|mass| calculate_fuel(*mass) ).sum();
+println!("{:?}", fuel);
 
 }
