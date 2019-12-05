@@ -3,27 +3,26 @@ fn create_intcode(noun:usize, verb: usize) -> [usize;121]{
 
 }
 
-
 fn main(){
 
-for x in 0..100{
-    for y in 0..100{
-        let mut intcode = create_intcode(x, y);
-        for i in 0..121{ 
-            if i % 4 == 0{
-                let val = match intcode[i] {
-                1 => intcode[intcode[i+1]] + intcode[intcode[i+2]],
-                2 => intcode[intcode[i+1]] * intcode[intcode[i+2]],
-                99 => break,
-                _ => panic!("{}, intcode[i]")
-                };
-                intcode[intcode[i+3]] = val;
+    for x in 0..100{
+        for y in 0..100{
+            let mut intcode = create_intcode(x, y);
+            for i in 0..121{ 
+                if i % 4 == 0{
+                    let val = match intcode[i] {
+                        1 => intcode[intcode[i+1]] + intcode[intcode[i+2]],
+                        2 => intcode[intcode[i+1]] * intcode[intcode[i+2]],
+                        99 => break,
+                        _ => panic!("{}, intcode[i]")
+                    };
+                    intcode[intcode[i+3]] = val;
 
+                }
+            }
+            if intcode[0] == 19690720{
+                panic!("{}", x*100 + y);
             }
         }
-        if intcode[0] == 19690720{
-            panic!("{}", x*100 + y);
-        }
     }
-}
 }
